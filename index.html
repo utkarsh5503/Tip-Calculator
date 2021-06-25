@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    
+    <style>
+body {
+			background-color: black;
+			font-family: 'Raleway', sans-serif;
+		}
+ 	
+	.container{
+    width : 50%;
+    height : auto;
+    margin-left: 25%;
+    margin-top: 0px;
+    padding-bottom: 10px;
+  }
+
+  project-wrapper h1{
+    background-color: red;
+    border:1px solid green;
+    padding: 10px;
+    margin: 0px;
+  
+    }
+  
+
+
+.tip-calculator-placeholder{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 10px;
+  color : pink;
+}
+
+.tip-calculator-wrapper {
+  width: 80%;
+  background-color: rgba(64, 40, 119, 0.85);
+  border-radius: 20px;
+}
+
+.tip-calculator-header{
+  border-radius: 20px 20px 0 0;
+  background-color: red;
+  padding-top: 10px;
+}
+
+.tip-calculator-header h1 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: rgb(194, 136, 28);
+  background-color: rgb(64, 6, 87);
+  border:none;
+}
+
+form p{
+  text-align: center;
+  color: orange;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  font-weight: 400;
+  padding: 5px 5px 5px 25px;
+}
+
+#total-bill-amount,
+#number-of-people {
+  font-size: 18px;
+  color: rgb(10, 11, 12);
+  background-color: #f7f7f7;
+  width: 40%;
+   padding: 5px 5px 5px 25px;
+  text-align: center;
+}
+
+#number-of-people:focus,
+#total-bill-amount:focus {
+  background: #fff;
+  border: 3px solid #2980b9;
+  outline: none;
+  width: 40%;
+}
+
+#service-quality {
+  font-size: 18px;
+  padding: 10px 8px 15px 50px;
+  color: rgb(10, 11, 12);
+  width: 45%;
+  text-align: center;
+}
+
+#calculate {
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(3, 42, 65, 0.753);
+  width: 200px;
+  height: 50px;
+  color: rgb(207, 188, 9);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+#answer p {
+  color: rgb(241, 179, 9);
+  font-size: 20px;
+  background-color: rgb(227, 229, 235);
+  padding: 10px;
+}
+
+#answer{
+  font-size: 30px;
+}
+
+#tip {
+  font-size: 25px;
+  color: rgb(194, 50, 6);
+}
+
+</style>
+
+   <title>Tip Calculator</title>
+</head>
+<body>
+    
+<center><h1> <p style="color:rgb(241, 179, 9)">Tip Calculator</p> </h1></center>
+    <div class="tip-calculator-placeholder">
+        <div class="tip-calculator-wrapper">
+            <div class="tip-calculator-header">
+                
+            </div>
+            <form>
+                <p>  Bill ($) </p>
+                <input type="number" id="total-bill-amount" placeholder="Total Bill Amount"> 
+                <p id="total-bill-error-message" class="error-message"></p>
+                <p> Tip % </p>
+                <select id="service-quality">
+                    <option disabled selected value="0"> -- Options -- </option>
+                     <option value="0.25"> 25&#37; -- Excelent -- </option>
+                    <option value="0.20"> 20&#37; -- Good -- </option>
+                    <option value="0.15"> 15&#37; -- Its Ok  -- </option>
+                    <option value="0.10"> 10&#37; -- Not Good -- </option>
+                    <option value="0.05"> 5&#37; -- Terrible -- </option>
+                </select>
+                <p></p>
+                <p> Number of People </p>
+                    <input type="number" id="number-of-people" placeholder="Number of People"> <br>
+                <button type="button" id="calculate"> Calculate </button>
+            </form>
+            <div id="answer">
+                Tip (per-person) : <span id="total-tip"> 0.00 </span><br> Total (per-person) : <span id="total-bill"> </span> </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+resultPlaceHolder = document.getElementById("answer");
+resultPlaceHolder.style.display = "none"; 
+
+function tipCalculator(){
+    const billAmount = parseFloat(document.getElementById("total-bill-amount").value);
+    const serviceQuality = parseFloat(document.getElementById("service-quality").value);
+    const numOfPeople = parseInt(document.getElementById("number-of-people").value);
+
+     if (billAmount === "" || serviceQuality == 0) {
+        alert("Please enter values");
+        return;
+    }
+
+    if (isNaN(numOfPeople) || numOfPeople < 1){
+        alert("Please Check Number of People");
+        return;
+    }
+
+   
+    var totalTip = (billAmount*serviceQuality)/numOfPeople;
+    totalTip = Math.round(totalTip*100) / 100;                    
+    const totalBill = (billAmount + (billAmount*serviceQuality))/numOfPeople;
+    document.getElementById("total-bill").innerHTML = "$" + totalBill;
+    document.getElementById("total-tip").innerHTML = "$" + totalTip; 
+    document.getElementById("answer").style.display = "block"; }
+
+
+document.getElementById("calculate").onclick = function() {
+    tipCalculator();
+};
+
+</script>
+</body>
+</html>
